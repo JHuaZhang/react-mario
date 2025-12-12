@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>React Mario</title>
+    <script>
+      // 对于GitHub Pages的子目录部署，重定向到根目录让React Router处理
+      const repoName = 'react-mario';
+      const currentPath = window.location.pathname;
+
+      // 如果当前路径不是根目录，重定向到带正确 base 的路径
+      if (!currentPath.startsWith(`/${repoName}/`)) {
+        window.location.href = `/${repoName}/`;
+      }
+    </script>
+  </head>
+  <body>
+    <div id="root">
+      <p>Loading...</p>
+    </div>
+    <script type="module" src="/react-mario/src/main.tsx"></script>
+  </body>
+</html>
