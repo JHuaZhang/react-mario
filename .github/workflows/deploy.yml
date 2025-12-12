@@ -50,6 +50,17 @@ jobs:
             ls -la dist/
           fi
 
+      # 👇 新增步骤：创建 404.html 以支持 BrowserRouter
+      - name: Create 404.html for BrowserRouter Support
+        run: |
+          if [ -f "dist/index.html" ]; then
+            cp dist/index.html dist/404.html
+            echo "✅ Created 404.html for client-side routing support"
+          else
+            echo "❌ dist/index.html not found! Cannot create 404.html"
+            exit 1
+          fi
+
       - name: Setup GitHub Pages
         uses: actions/configure-pages@v4
 
