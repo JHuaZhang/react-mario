@@ -1,0 +1,30 @@
+.renderComponent {
+  position: relative;
+  padding: 8px;
+  border: 2px solid transparent;
+  border-radius: 4px;
+  transition: all 0.3s;
+  margin-right: 40px;
+}
+
+.renderComponent:hover {
+  border-color: #91d5ff;
+  background-color: #f0f9ff;
+}
+
+.renderComponent.selected {
+  border-color: #1890ff;
+  background-color: #e6f7ff;
+}
+
+.componentActions {
+  position: absolute;
+  top: 0px;
+  right: -40px;
+  display: flex;
+  gap: 4px;
+  background: #fff;
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
