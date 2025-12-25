@@ -2,7 +2,7 @@ import { defineConfig } from 'vite';
 import { fileURLToPath, URL } from 'node:url';
 
 export default defineConfig(({ mode }) => {
-  const base = mode === 'sitebuild' ? '/' : '/react-mario/';
+  const base = mode === 'sitebuild' ? '/react-mario/' : '/';
 
   return {
     base,

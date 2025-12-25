@@ -36,7 +36,7 @@ jobs:
         run: pnpm install
 
       - name: Build Documentation Site
-        run: pnpm run build
+        run: pnpm run build:site
 
       - name: Verify Build Output
         run: |
