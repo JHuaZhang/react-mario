@@ -1,7 +1,7 @@
 export const RateSource = (
   <svg
-    width="80"
-    height="50"
+    width="48"
+    height="30"
     viewBox="0 0 1024 1024"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"

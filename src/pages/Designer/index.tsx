@@ -14,7 +14,7 @@ const Designer: React.FC = () => {
     <ComponentProvider components={[]}>
       <DndProvider backend={HTML5Backend}>
         <Layout style={{ height: '100vh' }}>
-          <Sider width={250} theme="light" style={{ borderRight: '1px solid #f0f0f0' }}>
+          <Sider width={280} theme="light" style={{ borderRight: '1px solid #f0f0f0' }}>
             <ComponentPanel />
           </Sider>
           <Content style={{ display: 'flex', flexDirection: 'column' }}>
