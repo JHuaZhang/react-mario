@@ -3,7 +3,9 @@ import react from '@vitejs/plugin-react';
 import { fileURLToPath, URL } from 'node:url';
 
 export default defineConfig(({ command }) => {
-  const base = command === 'serve' ? '/' : '/react-mario/';
+  // 判断是否为开发环境
+  const isDev = process.env.NODE_ENV === 'development' || process.env.ENV === 'sitebuild';
+  const base = isDev ? '/' : '/react-mario/';
 
   return {
     plugins: [react()],
