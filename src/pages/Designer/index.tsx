@@ -1,11 +1,11 @@
 import React from 'react';
-import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
 import { Layout } from 'antd';
-import ComponentPanel from '@/components/ComponentPanel';
-import Canvas from '@/components/Canvas';
-import PropertyPanel from '@/components/PropertyPanel';
+import { DndProvider } from 'react-dnd';
 import { ComponentProvider } from 'react-mario-core';
+import { HTML5Backend } from 'react-dnd-html5-backend';
+import ComponentPanel from './components/ComponentPanel';
+import Canvas from './components/Canvas';
+import ConfigPanel from './components/ConfigPanel';
 
 const { Sider, Content } = Layout;
 
@@ -20,9 +20,7 @@ const Designer: React.FC = () => {
           <Content style={{ display: 'flex', flexDirection: 'column' }}>
             <Canvas />
           </Content>
-          <Sider width={300} theme="light" style={{ borderLeft: '1px solid #f0f0f0' }}>
-            <PropertyPanel />
-          </Sider>
+          <ConfigPanel />
         </Layout>
       </DndProvider>
     </ComponentProvider>

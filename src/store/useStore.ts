@@ -7,6 +7,8 @@ interface Store {
   components: ComponentConfig[];
   /** 被选中的组件的id */
   selectedId: string | null;
+  /** 打开组件设置区 */
+  openPropertyPanel: boolean;
   /** 添加组件 */
   addComponent: (component: ComponentConfig) => void;
   /** 插入组件 */
@@ -25,6 +27,8 @@ interface Store {
   importComponents: (components: ComponentConfig[]) => void;
   /** 移动组件 */
   moveComponent: (oldIndex: number, newIndex: number) => void;
+  /** 打开组件设置区方法 */
+  setOpenPropertyPanel: (open: boolean) => void;
 }
 
 export const useStore = create<Store>((set, get) => ({
@@ -32,6 +36,8 @@ export const useStore = create<Store>((set, get) => ({
   components: [],
   /** 被选中的组件的id */
   selectedId: null,
+  /** 打开组件设置区 */
+  openPropertyPanel: false,
 
   /** 添加组件 */
   addComponent: (component) => {
@@ -116,5 +122,9 @@ export const useStore = create<Store>((set, get) => ({
   /** 导入组件 */
   importComponents: (components) => {
     set({ components, selectedId: null });
+  },
+  /** 打开组件设置区方法 */
+  setOpenPropertyPanel: (open) => {
+    set({ openPropertyPanel: open });
   },
 }));

@@ -8,7 +8,7 @@ import RenderComponent from './components/RenderComponent';
 import { DROP_TYPES } from '@/types';
 
 const Canvas: React.FC = () => {
-  const { components, addComponent, insertComponent, moveComponent } = useStore();
+  const { components, addComponent, insertComponent, moveComponent, selectComponent } = useStore();
   const dropIndexRef = useRef<number | null>(null);
   // 当前拖拽到的组件索引
   const [visualDropIndex, setVisualDropIndex] = useState<number | null>(null);
@@ -68,6 +68,9 @@ const Canvas: React.FC = () => {
       <Header />
       <div
         ref={drop}
+        onClick={() => {
+          selectComponent(null);
+        }}
         className={styles.canvasContent}
         style={{
           backgroundColor: isOver ? '#e6f7ff' : '#fff',
