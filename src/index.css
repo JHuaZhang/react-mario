@@ -5,9 +5,8 @@
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
+    'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -16,4 +15,22 @@ body {
   width: 100vw;
   height: 100vh;
   overflow: hidden;
+}
+
+:root {
+  --dn-brand-color: rgba(24, 144, 255, 1);
+  --dn-brand-hovering: rgba(64, 169, 255, 1);
+  --dn-brand-dragging: rgba(24, 144, 255, 0.26);
+  --dn-brand-dropping: rgba(24, 144, 255, 0.34);
+  --dn-brand-moving: rgba(24, 144, 255, 0.5);
+  --dn-white: #fff;
+  --dn-white-gray: #d9d9d9;
+  --dn-white-gray-light: #eee;
+  --dn-white-gray-lighter: #f0f0f0;
+  --dn-white-gray-dark: #aaa;
+  --dn-gray: #333;
+  --dn-gray-light: #444;
+  --dn-gray-lighter: #666;
+  --dn-gray-dark: #222;
+  --dn-black: #1a1a1a;
 }

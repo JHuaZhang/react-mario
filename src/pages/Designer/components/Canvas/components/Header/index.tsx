@@ -2,6 +2,7 @@ import React from 'react';
 import { Button, Space, message, Typography } from 'antd';
 import { useStore } from '@/store/useStore';
 import { DownloadOutlined, UploadOutlined, ClearOutlined } from '@ant-design/icons';
+import { v4 as uuidv4 } from 'uuid';
 import styles from './index.module.css';
 
 const { Title } = Typography;
@@ -39,7 +40,10 @@ const Header: React.FC = () => {
         try {
           const data = JSON.parse(event.target?.result as string);
           if (Array.isArray(data)) {
-            importComponents(data);
+            const newData = data.map((item) => {
+              return { ...item, id: item.id || uuidv4() };
+            });
+            importComponents(newData);
             message.success('导入成功');
           } else {
             message.error('文件格式不正确');

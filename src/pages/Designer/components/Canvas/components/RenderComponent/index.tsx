@@ -3,7 +3,7 @@ import type { ComponentConfig } from 'react-mario-core';
 import { useStore } from '@/store/useStore';
 import styles from './index.module.css';
 import { Button } from 'antd';
-import { DeleteOutlined } from '@ant-design/icons';
+import { DeleteOutlined, SettingOutlined } from '@ant-design/icons';
 import { useDrag } from 'react-dnd';
 import { DROP_TYPES } from '@/types';
 
@@ -13,7 +13,7 @@ interface Props {
 
 const RenderComponent = (props: Props) => {
   const { component } = props;
-  const { selectedId, selectComponent, deleteComponent } = useStore();
+  const { selectedId, selectComponent, deleteComponent, setOpenPropertyPanel } = useStore();
   const [{ isDragging }, drag] = useDrag(() => ({
     type: DROP_TYPES.COMPONENT_ITEM,
     item: { componentConfig: component, type: DROP_TYPES.COMPONENT_ITEM },
@@ -40,6 +40,14 @@ const RenderComponent = (props: Props) => {
     deleteComponent(component.id);
   };
 
+  const handleSetting = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (!component.id) {
+      return;
+    }
+    setOpenPropertyPanel(true);
+  };
+
   return (
     <div
       style={{
@@ -53,13 +61,18 @@ const RenderComponent = (props: Props) => {
       <FormRenderer config={[component]} showButtons={false} />
       {isSelected && (
         <div className={styles.componentActions}>
-          <Button
-            type="text"
-            size="small"
-            danger
-            icon={<DeleteOutlined />}
-            onClick={handleDelete}
-          />
+          <div className={styles.action}>
+            <Button type="text" size="small" icon={<SettingOutlined />} onClick={handleSetting} />
+          </div>
+          <div className={styles.action}>
+            <Button
+              type="text"
+              size="small"
+              danger
+              icon={<DeleteOutlined />}
+              onClick={handleDelete}
+            />
+          </div>
         </div>
       )}
     </div>

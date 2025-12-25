@@ -4,7 +4,6 @@
   border: 2px solid transparent;
   border-radius: 4px;
   transition: all 0.3s;
-  margin-right: 40px;
 }
 
 .renderComponent:hover {
@@ -19,10 +18,13 @@
 
 .componentActions {
   position: absolute;
-  top: 0px;
-  right: -40px;
+  top: 0;
+  right: 0;
   display: flex;
   gap: 4px;
+}
+
+.action {
   background: #fff;
   border: 1px solid #d9d9d9;
   border-radius: 4px;
