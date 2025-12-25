@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "build:site": "cross-env ENV=sitebuild tsc && vite build",
+    "build:site": "tsc && vite build --mode sitebuild",
     "preview": "vite preview",
     "predeploy": "npm run docs:build-site",
     "deploy": "gh-pages -d dist -b gh-pages"
@@ -30,8 +30,8 @@
     "@types/react-dom": "^18.2.17",
     "@types/uuid": "^9.0.7",
     "@vitejs/plugin-react": "^4.2.1",
-    "cross-env": "^10.1.0",
     "gh-pages": "^6.3.0",
+    "terser": "^5.44.1",
     "typescript": "^5.2.2",
     "vite": "^5.0.8"
   }

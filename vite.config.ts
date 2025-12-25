@@ -1,15 +1,11 @@
 import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
 import { fileURLToPath, URL } from 'node:url';
 
-export default defineConfig(({ command }) => {
-  // 判断是否为开发环境
-  const isDev = process.env.NODE_ENV === 'development' || process.env.ENV === 'sitebuild';
-  const base = isDev ? '/' : '/react-mario/';
+export default defineConfig(({ mode }) => {
+  const base = mode === 'sitebuild' ? '/' : '/react-mario/';
 
   return {
-    plugins: [react()],
-    base: base,
+    base,
     resolve: {
       alias: {
         '@': fileURLToPath(new URL('./src', import.meta.url)),
@@ -19,7 +15,28 @@ export default defineConfig(({ command }) => {
       port: 2345,
       host: '0.0.0.0',
       strictPort: false,
-      historyApiFallback: true,
+      open: true,
+    },
+
+    build: {
+      outDir: 'dist',
+      sourcemap: false,
+      minify: 'terser',
+      terserOptions: {
+        compress: {
+          drop_console: true,
+        },
+      },
+      rollupOptions: {
+        output: {
+          chunkFileNames: 'assets/[name]-[hash].js',
+          entryFileNames: 'assets/[name]-[hash].js',
+          assetFileNames: 'assets/[name]-[hash].[ext]',
+        },
+      },
+    },
+    optimizeDeps: {
+      include: ['lodash'],
     },
   };
 });
