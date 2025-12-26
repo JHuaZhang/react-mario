@@ -32,6 +32,16 @@ const RenderComponent = (props: Props) => {
     }
   };
 
+  const handleDoubleClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (component.id) {
+      selectComponent(component.id);
+      setOpenPropertyPanel(true);
+    } else {
+      selectComponent(null);
+    }
+  };
+
   const handleDelete = (e: React.MouseEvent) => {
     e.stopPropagation();
     if (!component.id) {
@@ -40,11 +50,7 @@ const RenderComponent = (props: Props) => {
     deleteComponent(component.id);
   };
 
-  const handleSetting = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    if (!component.id) {
-      return;
-    }
+  const handleSetting = () => {
     setOpenPropertyPanel(true);
   };
 
@@ -57,6 +63,7 @@ const RenderComponent = (props: Props) => {
       ref={drag}
       className={`${styles.renderComponent} ${isSelected ? styles.selected : ''}`}
       onClick={handleClick}
+      onDoubleClick={handleDoubleClick}
     >
       <FormRenderer config={[component]} showButtons={false} />
       {isSelected && (
