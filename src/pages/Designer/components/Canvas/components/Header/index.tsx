@@ -1,4 +1,5 @@
 import React from 'react';
+import { observer } from 'mobx-react-lite';
 import { Button, Space, message, Typography } from 'antd';
 import { useStore } from '@/store/useStore';
 import { DownloadOutlined, UploadOutlined, ClearOutlined } from '@ant-design/icons';
@@ -7,7 +8,7 @@ import styles from './index.module.css';
 
 const { Title } = Typography;
 
-const Header: React.FC = () => {
+const Header: React.FC = observer(() => {
   const { components, clearComponents, importComponents } = useStore();
   const handleExport = () => {
     try {
@@ -87,6 +88,6 @@ const Header: React.FC = () => {
       </Space>
     </div>
   );
-};
+});
 
 export default Header;

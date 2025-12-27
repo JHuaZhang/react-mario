@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { useDrop } from 'react-dnd';
+import { observer } from 'mobx-react-lite';
 import { useStore } from '@/store/useStore';
 import type { ComponentConfig } from 'react-mario-core';
 import Header from './components/Header';
@@ -7,7 +8,7 @@ import styles from './index.module.css';
 import RenderComponent from './components/RenderComponent';
 import { DROP_TYPES } from '@/types';
 
-const Canvas: React.FC = () => {
+const Canvas: React.FC = observer(() => {
   const { components, addComponent, insertComponent, moveComponent, selectComponent } = useStore();
   const dropIndexRef = useRef<number | null>(null);
   // 当前拖拽到的组件索引
@@ -116,6 +117,6 @@ const Canvas: React.FC = () => {
       </div>
     </div>
   );
-};
+});
 
 export default Canvas;

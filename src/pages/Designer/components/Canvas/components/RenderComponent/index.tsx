@@ -1,17 +1,18 @@
 import { FormRenderer } from 'react-mario-core';
-import type { ComponentConfig } from 'react-mario-core';
-import { useStore } from '@/store/useStore';
-import styles from './index.module.css';
 import { Button } from 'antd';
-import { DeleteOutlined, SettingOutlined } from '@ant-design/icons';
 import { useDrag } from 'react-dnd';
+import type { ComponentConfig } from 'react-mario-core';
+import { observer } from 'mobx-react-lite';
+import { useStore } from '@/store/useStore';
+import { DeleteOutlined, SettingOutlined } from '@ant-design/icons';
 import { DROP_TYPES } from '@/types';
+import styles from './index.module.css';
 
 interface Props {
   component: ComponentConfig;
 }
 
-const RenderComponent = (props: Props) => {
+const RenderComponent = observer((props: Props) => {
   const { component } = props;
   const { selectedId, selectComponent, deleteComponent, setOpenPropertyPanel } = useStore();
   const [{ isDragging }, drag] = useDrag(() => ({
@@ -35,7 +36,6 @@ const RenderComponent = (props: Props) => {
   const handleDoubleClick = (e: React.MouseEvent) => {
     e.stopPropagation();
     if (component.id) {
-      selectComponent(component.id);
       setOpenPropertyPanel(true);
     } else {
       selectComponent(null);
@@ -84,6 +84,6 @@ const RenderComponent = (props: Props) => {
       )}
     </div>
   );
-};
+});
 
 export default RenderComponent;
