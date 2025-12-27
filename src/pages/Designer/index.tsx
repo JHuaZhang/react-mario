@@ -4,7 +4,7 @@ import { DndProvider } from 'react-dnd';
 import { ComponentProvider } from 'react-mario-core';
 import { useLocalObservable } from 'mobx-react-lite';
 import { HTML5Backend } from 'react-dnd-html5-backend';
-import { FormDesignerStore, StoreContext } from '@/store/useStore';
+import { FormDesignerStore, StoreContext } from '@/store/componentStore';
 import ComponentPanel from './components/ComponentPanel';
 import Canvas from './components/Canvas';
 import ConfigPanel from './components/ConfigPanel';
