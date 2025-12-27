@@ -1,7 +1,7 @@
 import React from 'react';
 import { observer } from 'mobx-react-lite';
 import { Button, Space, message, Typography } from 'antd';
-import { useStore } from '@/store/useStore';
+import { useStore } from '@/store/componentStore';
 import { DownloadOutlined, UploadOutlined, ClearOutlined } from '@ant-design/icons';
 import { v4 as uuidv4 } from 'uuid';
 import styles from './index.module.css';

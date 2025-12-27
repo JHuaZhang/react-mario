@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { useDrop } from 'react-dnd';
 import { observer } from 'mobx-react-lite';
-import { useStore } from '@/store/useStore';
+import { useStore } from '@/store/componentStore';
 import type { ComponentConfig } from 'react-mario-core';
 import Header from './components/Header';
 import styles from './index.module.css';

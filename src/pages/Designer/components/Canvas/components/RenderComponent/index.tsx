@@ -3,7 +3,7 @@ import { Button } from 'antd';
 import { useDrag } from 'react-dnd';
 import type { ComponentConfig } from 'react-mario-core';
 import { observer } from 'mobx-react-lite';
-import { useStore } from '@/store/useStore';
+import { useStore } from '@/store/componentStore';
 import { DeleteOutlined, SettingOutlined } from '@ant-design/icons';
 import { DROP_TYPES } from '@/types';
 import styles from './index.module.css';
