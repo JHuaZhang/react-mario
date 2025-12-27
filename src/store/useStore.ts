@@ -1,7 +1,7 @@
-import { create } from 'zustand';
+import React from 'react';
+import { makeAutoObservable, runInAction } from 'mobx';
 import type { ComponentConfig } from 'react-mario-core';
 import { v4 as uuidv4 } from 'uuid';
-
 interface Store {
   /** 画布上组件集合 */
   components: ComponentConfig[];
@@ -31,100 +31,125 @@ interface Store {
   setOpenPropertyPanel: (open: boolean) => void;
 }
 
-export const useStore = create<Store>((set, get) => ({
+export class FormDesignerStore implements Store {
   /** 画布上组件集合 */
-  components: [],
+  components: ComponentConfig[] = [];
   /** 被选中的组件的id */
-  selectedId: null,
+  selectedId: string | null = null;
   /** 打开组件设置区 */
-  openPropertyPanel: false,
+  openPropertyPanel = false;
+  constructor() {
+    makeAutoObservable(this, {});
+  }
 
   /** 添加组件 */
-  addComponent: (component) => {
+  addComponent = (component: ComponentConfig) => {
     const newComponent = {
       ...component,
       id: component.id || uuidv4(),
     };
-    set((state) => ({
-      components: [...state.components, newComponent],
-    }));
-  },
+
+    runInAction(() => {
+      this.components = [...this.components, newComponent];
+    });
+  };
 
   /** 插入组件 */
-  insertComponent: (component, index) => {
+  insertComponent = (component: ComponentConfig, index: number) => {
     const newComponent = {
       ...component,
       id: component.id || uuidv4(),
     };
-    set((state) => {
-      const newComponents = [...state.components];
+    runInAction(() => {
+      const newComponents = [...this.components];
       newComponents.splice(index, 0, newComponent);
-      return { components: newComponents };
+      this.components = newComponents;
     });
-  },
+  };
 
   /** 更新组件 */
-  updateComponent: (id, updates) => {
-    set((state) => ({
-      components: state.components.map((comp) => (comp.id === id ? { ...comp, ...updates } : comp)),
-    }));
-  },
+  updateComponent = (id: string, updates: Partial<ComponentConfig>) => {
+    runInAction(() => {
+      this.components = this.components.map((comp) =>
+        comp.id === id ? { ...comp, ...updates } : comp
+      );
+    });
+  };
 
   /** 删除组件 */
-  deleteComponent: (id) => {
-    set((state) => ({
-      components: state.components.filter((comp) => comp.id !== id),
-      selectedId: state.selectedId === id ? null : state.selectedId,
-    }));
-  },
+  deleteComponent = (id: string) => {
+    runInAction(() => {
+      this.components = this.components.filter((comp) => comp.id !== id);
+
+      if (this.selectedId === id) {
+        this.selectedId = null;
+      }
+    });
+  };
 
   /** 移动组件 */
-  moveComponent: (oldIndex: number, newIndex: number) => {
-    console.log(oldIndex, 'oldIndex');
-    console.log(newIndex, 'newIndex');
-    set((state) => {
-      const { components } = state;
+  moveComponent = (oldIndex: number, newIndex: number) => {
+    runInAction(() => {
+      const { components } = this;
       if (
         oldIndex === newIndex ||
         oldIndex < 0 ||
         newIndex < 0 ||
-        oldIndex > components.length ||
-        newIndex > components.length
+        oldIndex >= components.length ||
+        newIndex >= components.length
       ) {
-        return state;
+        return;
       }
       const newComponents = [...components];
       const [movedItem] = newComponents.splice(oldIndex, 1);
-      console.log(movedItem, 'movedItem');
       const insertIndex = oldIndex < newIndex ? newIndex - 1 : newIndex;
       newComponents.splice(insertIndex, 0, movedItem);
-      console.log(newComponents, 'newComponents');
-      return { components: newComponents };
+      this.components = newComponents;
     });
-  },
+  };
 
   /** 选择组件 */
-  selectComponent: (id) => {
-    set({ selectedId: id });
-  },
+  selectComponent = (id: string | null) => {
+    runInAction(() => {
+      this.selectedId = id;
+    });
+  };
 
   /** 获取被选中的组件 */
-  getSelectedComponent: () => {
-    const { components, selectedId } = get();
-    return components.find((comp) => comp.id === selectedId) || null;
-  },
+  getSelectedComponent = (): ComponentConfig | null => {
+    return this.components.find((comp) => comp.id === this.selectedId) || null;
+  };
 
   /** 清空组件 */
-  clearComponents: () => {
-    set({ components: [], selectedId: null });
-  },
+  clearComponents = () => {
+    runInAction(() => {
+      this.components = [];
+      this.selectedId = null;
+    });
+  };
 
   /** 导入组件 */
-  importComponents: (components) => {
-    set({ components, selectedId: null });
-  },
-  /** 打开组件设置区方法 */
-  setOpenPropertyPanel: (open) => {
-    set({ openPropertyPanel: open });
-  },
-}));
+  importComponents = (components: ComponentConfig[]) => {
+    runInAction(() => {
+      this.components = components;
+      this.selectedId = null;
+    });
+  };
+
+  /** 打开/关闭组件设置区方法 */
+  setOpenPropertyPanel = (open: boolean) => {
+    runInAction(() => {
+      this.openPropertyPanel = open;
+    });
+  };
+}
+
+export const StoreContext = React.createContext<FormDesignerStore>({} as FormDesignerStore);
+
+export function useStore() {
+  const store = React.useContext(StoreContext);
+  if (!store) {
+    throw new Error('You have forgot to use StoreProvider, shame on you.');
+  }
+  return store;
+}
