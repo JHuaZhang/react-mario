@@ -31,7 +31,7 @@ interface Store {
   setOpenPropertyPanel: (open: boolean) => void;
 }
 
-export class FormDesignerStore implements Store {
+export class ComponentStore implements Store {
   /** 画布上组件集合 */
   components: ComponentConfig[] = [];
   /** 被选中的组件的id */
@@ -48,7 +48,6 @@ export class FormDesignerStore implements Store {
       ...component,
       id: component.id || uuidv4(),
     };
-
     runInAction(() => {
       this.components = [...this.components, newComponent];
     });
@@ -80,7 +79,6 @@ export class FormDesignerStore implements Store {
   deleteComponent = (id: string) => {
     runInAction(() => {
       this.components = this.components.filter((comp) => comp.id !== id);
-
       if (this.selectedId === id) {
         this.selectedId = null;
       }
@@ -144,7 +142,7 @@ export class FormDesignerStore implements Store {
   };
 }
 
-export const StoreContext = React.createContext<FormDesignerStore>({} as FormDesignerStore);
+export const StoreContext = React.createContext<ComponentStore>({} as ComponentStore);
 
 export function useStore() {
   const store = React.useContext(StoreContext);

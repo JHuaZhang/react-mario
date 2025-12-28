@@ -4,7 +4,7 @@ import { DndProvider } from 'react-dnd';
 import { ComponentProvider } from 'react-mario-core';
 import { useLocalObservable } from 'mobx-react-lite';
 import { HTML5Backend } from 'react-dnd-html5-backend';
-import { FormDesignerStore, StoreContext } from '@/store/componentStore';
+import { ComponentStore, StoreContext } from '@/store/componentStore';
 import ComponentPanel from './components/ComponentPanel';
 import Canvas from './components/Canvas';
 import ConfigPanel from './components/ConfigPanel';
@@ -12,7 +12,7 @@ import ConfigPanel from './components/ConfigPanel';
 const { Sider, Content } = Layout;
 
 const Designer: React.FC = () => {
-  const store = useLocalObservable(() => new FormDesignerStore());
+  const store = useLocalObservable(() => new ComponentStore());
   return (
     <StoreContext.Provider value={store}>
       <ComponentProvider components={[]}>
