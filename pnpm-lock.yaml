@@ -24,8 +24,8 @@ importers:
         specifier: ^18.2.0
         version: 18.3.1
       react-antd-xform:
-        specifier: 1.0.13
-        version: 1.0.13(mobx-react-lite@4.1.1(mobx@6.15.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(mobx@6.15.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 1.0.14
+        version: 1.0.14(mobx-react-lite@4.1.1(mobx@6.15.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(mobx@6.15.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react-dnd:
         specifier: ^16.0.1
         version: 16.0.1(@types/node@20.19.25)(@types/react@18.3.27)(react@18.3.1)
@@ -1167,8 +1167,8 @@ packages:
       react: '>=16.9.0'
       react-dom: '>=16.9.0'
 
-  react-antd-xform@1.0.13:
-    resolution: {integrity: sha512-SDTfCWrJMZMuGBmHwKe9F+8ZkKVSB4VlajVxUcw3hw0lUrcNYblcra1daK/wXKIE5taPHZqU6TKjbhAbvc0pPQ==}
+  react-antd-xform@1.0.14:
+    resolution: {integrity: sha512-KusWVKwjYajGz++LeYNdrczJgd98oZ3e+FgmxppS6guOAF+optWxsW1SLMMUD7B2Os/G0nenj+rlU2R1Elb1bA==}
     peerDependencies:
       mobx: ^6.13.7
       mobx-react-lite: ^4.1.0
@@ -2545,7 +2545,7 @@ snapshots:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
-  react-antd-xform@1.0.13(mobx-react-lite@4.1.1(mobx@6.15.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(mobx@6.15.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  react-antd-xform@1.0.14(mobx-react-lite@4.1.1(mobx@6.15.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(mobx@6.15.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
       '@types/invariant': 2.2.37
       '@types/stringify-object': 4.0.5
