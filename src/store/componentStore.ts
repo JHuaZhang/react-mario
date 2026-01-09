@@ -1,7 +1,7 @@
 import React from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import { makeAutoObservable, runInAction } from 'mobx';
 import type { ComponentConfig } from 'react-mario-core';
-import { v4 as uuidv4 } from 'uuid';
 interface Store {
   /** 画布上组件集合 */
   components: ComponentConfig[];
@@ -44,13 +44,15 @@ export class ComponentStore implements Store {
 
   /** 添加组件 */
   addComponent = (component: ComponentConfig) => {
+    const newId = component.id || uuidv4();
     const newComponent = {
       ...component,
-      id: component.id || uuidv4(),
+      id: newId,
     };
     runInAction(() => {
       this.components = [...this.components, newComponent];
     });
+    return newId;
   };
 
   /** 插入组件 */

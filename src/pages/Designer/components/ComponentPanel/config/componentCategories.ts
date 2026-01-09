@@ -1,8 +1,8 @@
-import { BaseComponent } from '@/types/enum';
+import { BaseComponent, ComponentClassification } from '@/types/enum';
 
 /** 分类配置 */
 export const componentCategories = {
-  base: {
+  [ComponentClassification.BASE]: {
     title: '基础组件',
     description: '表单输入、选择等基础交互组件',
     components: BaseComponent.getAll(),
@@ -15,7 +15,7 @@ export const getComponentCategory = (componentName: string): string => {
       return category;
     }
   }
-  return 'base';
+  return '';
 };
 
 export const getComponentCategoriesInfo = (

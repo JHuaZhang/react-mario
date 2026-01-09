@@ -1,15 +1,24 @@
 import React, { useState, useRef } from 'react';
 import { useDrop } from 'react-dnd';
 import { observer } from 'mobx-react-lite';
-import { useStore } from '@/store/componentStore';
 import type { ComponentConfig } from 'react-mario-core';
-import Header from './components/Header';
-import styles from './index.module.css';
-import RenderComponent from './components/RenderComponent';
+import { useStore } from '@/store/componentStore';
 import { DROP_TYPES } from '@/types';
+import { ComponentClassification } from '@/types/enum';
+import Header from './components/Header';
+import RenderComponent from './components/RenderComponent';
+import { getComponentCategory } from '../ComponentPanel/config/componentCategories';
+import styles from './index.module.css';
 
 const Canvas: React.FC = observer(() => {
-  const { components, addComponent, insertComponent, moveComponent, selectComponent } = useStore();
+  const {
+    components,
+    addComponent,
+    insertComponent,
+    moveComponent,
+    selectComponent,
+    setOpenPropertyPanel,
+  } = useStore();
   const dropIndexRef = useRef<number | null>(null);
   // 当前拖拽到的组件索引
   const [visualDropIndex, setVisualDropIndex] = useState<number | null>(null);
@@ -49,7 +58,13 @@ const Canvas: React.FC = observer(() => {
     if (index !== null) {
       insertComponent(componentConfig, index);
     } else {
-      addComponent(componentConfig);
+      const newId = addComponent(componentConfig);
+      const componentType = getComponentCategory(componentConfig.component);
+      if (componentType === ComponentClassification.BASE) {
+        // 基础组件添加后，自动打开配置面板
+        selectComponent(newId);
+        setOpenPropertyPanel(true);
+      }
     }
   };
 

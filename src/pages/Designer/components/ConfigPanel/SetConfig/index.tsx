@@ -1,7 +1,7 @@
+import { observer } from 'mobx-react-lite';
 import { ComponentConfig } from 'react-mario-core';
 import { Form, FormItem } from 'react-antd-xform';
 import { useStore } from '@/store/configStore';
-import { observer } from 'mobx-react-lite';
 
 interface Props {
   currentComponent: ComponentConfig;

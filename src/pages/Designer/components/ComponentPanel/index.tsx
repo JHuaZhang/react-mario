@@ -3,13 +3,13 @@ import { Typography } from 'antd';
 import { useComponentRegistry } from 'react-mario-core';
 import { ComponentItemConfig } from '@/types/components';
 import Card from './components/Card';
-import styles from './index.module.css';
 import {
   componentCategories,
   getComponentCategory,
   getComponentCategoriesInfo,
 } from './config/componentCategories';
 import { getIcon } from './config/iconConfig';
+import styles from './index.module.css';
 
 const { Title } = Typography;
 

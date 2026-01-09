@@ -6,6 +6,7 @@ import { useStore } from '@/store/componentStore';
 import { ConfigStore, StoreContext } from '@/store/configStore';
 import SetConfig from './SetConfig';
 import { getComponentCategory } from '../ComponentPanel/config/componentCategories';
+import styles from './index.module.css'
 
 const ConfigPanel = observer(() => {
   const { setOpenPropertyPanel, openPropertyPanel, selectedId, components } = useStore();
@@ -28,7 +29,16 @@ const ConfigPanel = observer(() => {
 
   return (
     <StoreContext.Provider value={store}>
-      <Drawer title="组件配置" width={500} onClose={onClose} open={openPropertyPanel}>
+      <Drawer
+        title={
+          <div>
+            组件配置<span className={styles.warnText}>默认组件需强制设置带*号属性</span>
+          </div>
+        }
+        width={500}
+        onClose={onClose}
+        open={openPropertyPanel}
+      >
         {currentComponent && (
           <SetConfig
             currentComponent={currentComponent}

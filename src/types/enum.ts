@@ -1,3 +1,4 @@
+/** 基础组件枚举 */
 export enum BaseComponent {
   Input = 'input',
   Select = 'select',
@@ -20,4 +21,10 @@ export namespace BaseComponent {
   export function getAll(): string[] {
     return Object.values(BaseComponent).filter((value) => typeof value === 'string') as string[];
   }
+}
+
+/** 组件分类 */
+export enum ComponentClassification {
+  /** 基础组件 */
+  BASE = 'base',
 }
