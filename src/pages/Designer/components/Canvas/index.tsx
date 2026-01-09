@@ -18,6 +18,7 @@ const Canvas: React.FC = observer(() => {
     moveComponent,
     selectComponent,
     setOpenPropertyPanel,
+    setIsFirstSetting,
   } = useStore();
   const dropIndexRef = useRef<number | null>(null);
   // 当前拖拽到的组件索引
@@ -64,6 +65,7 @@ const Canvas: React.FC = observer(() => {
         // 基础组件添加后，自动打开配置面板
         selectComponent(newId);
         setOpenPropertyPanel(true);
+        setIsFirstSetting(true);
       }
     }
   };

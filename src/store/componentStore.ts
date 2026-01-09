@@ -29,6 +29,8 @@ interface Store {
   moveComponent: (oldIndex: number, newIndex: number) => void;
   /** 打开组件设置区方法 */
   setOpenPropertyPanel: (open: boolean) => void;
+  /** 是否是第一次设置组件 */
+  isFirstSetting: boolean;
 }
 
 export class ComponentStore implements Store {
@@ -38,6 +40,9 @@ export class ComponentStore implements Store {
   selectedId: string | null = null;
   /** 打开组件设置区 */
   openPropertyPanel = false;
+  /** 是否是第一次设置组件 */
+  isFirstSetting = false;
+
   constructor() {
     makeAutoObservable(this, {});
   }
@@ -140,6 +145,12 @@ export class ComponentStore implements Store {
   setOpenPropertyPanel = (open: boolean) => {
     runInAction(() => {
       this.openPropertyPanel = open;
+    });
+  };
+  /** 设置是否是第一次设置组件 */
+  setIsFirstSetting = (isFirstSetting: boolean) => {
+    runInAction(() => {
+      this.isFirstSetting = isFirstSetting;
     });
   };
 }

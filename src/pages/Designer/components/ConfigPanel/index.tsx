@@ -6,10 +6,17 @@ import { useStore } from '@/store/componentStore';
 import { ConfigStore, StoreContext } from '@/store/configStore';
 import SetConfig from './SetConfig';
 import { getComponentCategory } from '../ComponentPanel/config/componentCategories';
-import styles from './index.module.css'
+import styles from './index.module.css';
 
 const ConfigPanel = observer(() => {
-  const { setOpenPropertyPanel, openPropertyPanel, selectedId, components } = useStore();
+  const {
+    setOpenPropertyPanel,
+    openPropertyPanel,
+    selectedId,
+    components,
+    setIsFirstSetting,
+    isFirstSetting,
+  } = useStore();
   const store = useLocalObservable(() => new ConfigStore());
 
   const currentComponent = useMemo(() => {
@@ -25,11 +32,14 @@ const ConfigPanel = observer(() => {
 
   const onClose = () => {
     setOpenPropertyPanel(false);
+    setIsFirstSetting(false);
   };
 
   return (
     <StoreContext.Provider value={store}>
       <Drawer
+        closable={!isFirstSetting}
+        maskClosable={!isFirstSetting}
         title={
           <div>
             组件配置<span className={styles.warnText}>默认组件需强制设置带*号属性</span>
