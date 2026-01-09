@@ -76,9 +76,21 @@ export class ComponentStore implements Store {
   /** 更新组件 */
   updateComponent = (id: string, updates: Partial<ComponentConfig>) => {
     runInAction(() => {
-      this.components = this.components.map((comp) =>
-        comp.id === id ? { ...comp, ...updates } : comp
-      );
+      this.components = this.components.map((comp) => {
+        if (comp.id === id) {
+          // todo，后续需优化xform
+          // 需要校验name不能为纯数字，xform对string类型的111等纯数字会报错
+          if (isNaN(Number(updates.name))) {
+            return {
+              ...comp,
+              ...updates,
+            };
+          } else {
+            return comp;
+          }
+        }
+        return comp;
+      });
     });
   };
 
