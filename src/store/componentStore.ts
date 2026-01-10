@@ -1,6 +1,6 @@
 import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import { makeAutoObservable, runInAction } from 'mobx';
+import { makeAutoObservable, runInAction, reaction } from 'mobx';
 import type { ComponentConfig } from 'react-mario-core';
 interface Store {
   /** 画布上组件集合 */
@@ -47,17 +47,29 @@ export class ComponentStore implements Store {
     makeAutoObservable(this, {});
   }
 
-  /** 添加组件 */
-  addComponent = (component: ComponentConfig) => {
+  /** 添加组件,支持回调 */
+  addComponent = (component: ComponentConfig): Promise<string> => {
     const newId = component.id || uuidv4();
     const newComponent = {
       ...component,
       id: newId,
     };
-    runInAction(() => {
-      this.components = [...this.components, newComponent];
+    return new Promise((resolve) => {
+      const disposer = reaction(
+        () => this.components.length,
+        () => {
+          const added = this.components.find((c) => c.id === newId);
+          if (added) {
+            disposer();
+            resolve(newId);
+          }
+        },
+        { fireImmediately: true }
+      );
+      runInAction(() => {
+        this.components = [...this.components, newComponent];
+      });
     });
-    return newId;
   };
 
   /** 插入组件 */
@@ -126,9 +138,22 @@ export class ComponentStore implements Store {
   };
 
   /** 选择组件 */
-  selectComponent = (id: string | null) => {
-    runInAction(() => {
-      this.selectedId = id;
+  selectComponent = (componentId: string | null): Promise<void> => {
+    return new Promise((resolve) => {
+      const disposer = reaction(
+        () => this.selectedId,
+        (selectedId) => {
+          if (selectedId === componentId) {
+            disposer();
+            resolve();
+          }
+        },
+        { fireImmediately: true }
+      );
+
+      runInAction(() => {
+        this.selectedId = componentId;
+      });
     });
   };
 

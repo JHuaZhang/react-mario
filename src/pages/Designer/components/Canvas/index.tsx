@@ -55,15 +55,15 @@ const Canvas: React.FC = observer(() => {
     [visualDropIndex]
   );
 
-  const handleDrop = (componentConfig: ComponentConfig, index: number | null = null) => {
+  const handleDrop = async (componentConfig: ComponentConfig, index: number | null = null) => {
     if (index !== null) {
       insertComponent(componentConfig, index);
     } else {
-      const newId = addComponent(componentConfig);
+      const newId = await addComponent(componentConfig);
       const componentType = getComponentCategory(componentConfig.component);
       if (componentType === ComponentClassification.BASE) {
         // 基础组件添加后，自动打开配置面板
-        selectComponent(newId);
+        await selectComponent(newId);
         setOpenPropertyPanel(true);
         setIsFirstSetting(true);
       }
