@@ -13,19 +13,15 @@ interface Props {
 const SetConfig = observer((props: Props) => {
   const { currentComponent } = props;
   const { model } = useStore();
-  const { updateComponent, setOpenPropertyPanel, isFirstSetting, setIsFirstSetting } =
-    useComponentStore();
+  const { updateComponent, setOpenPropertyPanel, setIsFirstSetting } = useComponentStore();
 
   useEffect(() => {
-    if (!isFirstSetting) {
-      model.values = {
-        ...currentComponent,
-      };
-    }
+    model.values = {
+      ...currentComponent,
+    };
   }, [currentComponent]);
 
   const onSubmit = (values: any) => {
-    console.log('提交调整:', values);
     updateComponent(currentComponent.id, values);
     setOpenPropertyPanel(false);
     modelUtils.reset(model);
