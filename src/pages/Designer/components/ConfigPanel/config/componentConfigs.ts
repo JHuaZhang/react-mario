@@ -45,10 +45,52 @@ export const defaultComplexValueConfig: FormItemConfig = {
   name: 'defaultProps.defaultValue',
   label: '默认值',
   component: 'textArea',
-  help: '多选或范围请填JSON数组，如 ["1", "2"]',
+  help: '多选请填JSON数组，如 ["1", "2"]',
   componentProps: {
     rows: 2,
   },
+};
+
+export const defaultDatePickerValueConfig: FormItemConfig = {
+  name: 'defaultProps.defaultValue',
+  label: '默认值',
+  component: 'datePicker',
+};
+
+export const defaultDateRangePickerValueConfig: FormItemConfig = {
+  name: 'defaultProps.defaultValue',
+  label: '默认值',
+  component: 'dateRangePicker',
+};
+
+export const defaultTimePickerValueConfig: FormItemConfig = {
+  name: 'defaultProps.defaultValue',
+  label: '默认值',
+  component: 'timePicker',
+};
+
+export const defaultTimeRangePickerValueConfig: FormItemConfig = {
+  name: 'defaultProps.defaultValue',
+  label: '默认值',
+  component: 'timeRangePicker',
+};
+
+export const defaultColorPickerValueConfig: FormItemConfig = {
+  name: 'defaultProps.defaultValue',
+  label: '默认值',
+  component: 'colorPicker',
+};
+
+export const defaultSliderValueConfig: FormItemConfig = {
+  name: 'defaultProps.defaultValue',
+  label: '默认值',
+  component: 'slider',
+};
+
+export const defaultRateValueConfig: FormItemConfig = {
+  name: 'defaultProps.defaultValue',
+  label: '默认值',
+  component: 'rate',
 };
 
 
@@ -101,24 +143,24 @@ export const componentConfigMap: Record<string, FormItemConfig[]> = {
   ],
   datePicker: [
     ...baseConfig,
-    defaultValueConfig,
+    defaultDatePickerValueConfig,
     placeholderConfig,
     disabledConfig,
   ],
   dateRangePicker: [
     ...baseConfig,
-    defaultComplexValueConfig,
+    defaultDateRangePickerValueConfig,
     disabledConfig,
   ],
   timePicker: [
     ...baseConfig,
-    defaultValueConfig,
+    defaultTimePickerValueConfig,
     placeholderConfig,
     disabledConfig,
   ],
   timeRangePicker: [
     ...baseConfig,
-    defaultComplexValueConfig,
+    defaultTimeRangePickerValueConfig,
     disabledConfig,
   ],
   textArea: [
@@ -136,7 +178,7 @@ export const componentConfigMap: Record<string, FormItemConfig[]> = {
   ],
   slider: [
     ...baseConfig,
-    defaultNumberValueConfig,
+    defaultSliderValueConfig,
     disabledConfig,
   ],
   switch: [
@@ -146,12 +188,12 @@ export const componentConfigMap: Record<string, FormItemConfig[]> = {
   ],
   rate: [
     ...baseConfig,
-    defaultNumberValueConfig,
+    defaultRateValueConfig,
     disabledConfig,
   ],
   colorPicker: [
     ...baseConfig,
-    defaultValueConfig,
+    defaultColorPickerValueConfig,
     disabledConfig,
   ],
 };

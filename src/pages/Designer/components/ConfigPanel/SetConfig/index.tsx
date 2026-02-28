@@ -27,7 +27,14 @@ const SetConfig = observer((props: Props) => {
     }
 
     if (currentComponent.defaultProps?.defaultValue !== undefined && typeof currentComponent.defaultProps.defaultValue === 'object') {
-      initialValues['defaultProps.defaultValue'] = JSON.stringify(currentComponent.defaultProps.defaultValue, null, 2);
+      const isComplexStrField = [
+        'multiSelect', 'checkbox', 'datePicker', 'dateRangePicker', 'timePicker', 'timeRangePicker'
+      ].includes(currentComponent.component as string);
+      if (isComplexStrField) {
+        initialValues['defaultProps.defaultValue'] = JSON.stringify(currentComponent.defaultProps.defaultValue, null, 2);
+      } else {
+        initialValues['defaultProps.defaultValue'] = currentComponent.defaultProps.defaultValue;
+      }
     }
 
     model.values = initialValues;
@@ -49,6 +56,9 @@ const SetConfig = observer((props: Props) => {
             // keep as string if parse fails
           }
         }
+      } else if (values['defaultProps.defaultValue'] !== undefined && typeof values['defaultProps.defaultValue'] === 'object') {
+        // If it's already an object (e.g. Dayjs from datePicker), convert it to string/array of strings via JSON
+        values['defaultProps.defaultValue'] = JSON.parse(JSON.stringify(values['defaultProps.defaultValue']));
       }
       
       // Expand flat keys like "defaultProps.placeholder" into nested objects

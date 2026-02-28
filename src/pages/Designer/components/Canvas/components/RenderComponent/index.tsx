@@ -5,6 +5,7 @@ import type { ComponentConfig } from 'react-mario-core';
 import { observer } from 'mobx-react-lite';
 import { useMemo, useEffect } from 'react';
 import { FormModel } from 'react-antd-xform';
+import dayjs from 'dayjs';
 import { useStore } from '@/store/componentStore';
 import { DeleteOutlined, SettingOutlined } from '@ant-design/icons';
 import { DROP_TYPES } from '@/types';
@@ -29,15 +30,38 @@ const RenderComponent = observer((props: Props) => {
   const model = useMemo(() => {
     const formModel = new FormModel<Record<string, any>>({});
     if (component.name && component.defaultProps?.defaultValue !== undefined) {
-      formModel.values[component.name] = component.defaultProps.defaultValue;
+      let val = component.defaultProps.defaultValue;
+      if (['datePicker', 'timePicker'].includes(component.component as string) && typeof val === 'string') {
+        val = dayjs(val);
+      } else if (['dateRangePicker', 'timeRangePicker'].includes(component.component as string) && Array.isArray(val)) {
+        val = val.map((v: any) => v ? dayjs(v) : v);
+      }
+      formModel.values[component.name] = val;
     }
     return formModel;
-  }, []);
+  }, [component.defaultProps?.defaultValue, component.name, component.component]);
 
   useEffect(() => {
     if (component.name && component.defaultProps?.defaultValue !== undefined) {
-      if (model.values[component.name] !== component.defaultProps.defaultValue) {
-        model.values[component.name] = component.defaultProps.defaultValue;
+      const currentValue = model.values[component.name];
+      const nextValue = component.defaultProps.defaultValue;
+      
+      const isDifferent = (() => {
+        if (currentValue === nextValue) return false;
+        if (typeof currentValue === 'object' && typeof nextValue === 'object' && currentValue !== null && nextValue !== null) {
+          return JSON.stringify(currentValue) !== JSON.stringify(nextValue);
+        }
+        return true;
+      })();
+
+      if (isDifferent) {
+        let val = nextValue;
+        if (['datePicker', 'timePicker'].includes(component.component as string) && typeof val === 'string') {
+          val = dayjs(val);
+        } else if (['dateRangePicker', 'timeRangePicker'].includes(component.component as string) && Array.isArray(val)) {
+          val = val.map((v: any) => v ? dayjs(v) : v);
+        }
+        model.values[component.name] = val;
       }
     } else {
       if (component.name && model.values[component.name] !== undefined) {
