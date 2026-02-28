@@ -3,6 +3,8 @@ import { Button } from 'antd';
 import { useDrag } from 'react-dnd';
 import type { ComponentConfig } from 'react-mario-core';
 import { observer } from 'mobx-react-lite';
+import { useMemo, useEffect } from 'react';
+import { FormModel } from 'react-antd-xform';
 import { useStore } from '@/store/componentStore';
 import { DeleteOutlined, SettingOutlined } from '@ant-design/icons';
 import { DROP_TYPES } from '@/types';
@@ -23,6 +25,26 @@ const RenderComponent = observer((props: Props) => {
     }),
   }));
   const isSelected = selectedId === component.id;
+
+  const model = useMemo(() => {
+    const formModel = new FormModel<Record<string, any>>({});
+    if (component.name && component.defaultProps?.defaultValue !== undefined) {
+      formModel.values[component.name] = component.defaultProps.defaultValue;
+    }
+    return formModel;
+  }, []);
+
+  useEffect(() => {
+    if (component.name && component.defaultProps?.defaultValue !== undefined) {
+      if (model.values[component.name] !== component.defaultProps.defaultValue) {
+        model.values[component.name] = component.defaultProps.defaultValue;
+      }
+    } else {
+      if (component.name && model.values[component.name] !== undefined) {
+        model.values[component.name] = undefined;
+      }
+    }
+  }, [component.defaultProps?.defaultValue, component.name, model]);
 
   const handleClick = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -65,7 +87,7 @@ const RenderComponent = observer((props: Props) => {
       onClick={handleClick}
       onDoubleClick={handleDoubleClick}
     >
-      <FormRenderer config={[component]} showButtons={false} />
+      <FormRenderer config={[component]} showButtons={false} model={model} />
       {isSelected && (
         <div className={styles.componentActions}>
           <div className={styles.action}>
