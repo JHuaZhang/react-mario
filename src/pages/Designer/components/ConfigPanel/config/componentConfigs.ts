@@ -23,6 +23,35 @@ export const disabledConfig: FormItemConfig = {
   component: 'switch',
 };
 
+export const defaultValueConfig: FormItemConfig = {
+  name: 'defaultProps.defaultValue',
+  label: '默认值',
+  component: 'input',
+};
+
+export const defaultNumberValueConfig: FormItemConfig = {
+  name: 'defaultProps.defaultValue',
+  label: '默认值',
+  component: 'inputNumber',
+};
+
+export const defaultSwitchValueConfig: FormItemConfig = {
+  name: 'defaultProps.defaultValue',
+  label: '默认值',
+  component: 'switch',
+};
+
+export const defaultComplexValueConfig: FormItemConfig = {
+  name: 'defaultProps.defaultValue',
+  label: '默认值',
+  component: 'textArea',
+  help: '多选或范围请填JSON数组，如 ["1", "2"]',
+  componentProps: {
+    rows: 2,
+  },
+};
+
+
 export const optionsConfig: FormItemConfig = {
   name: 'defaultProps.options',
   label: '选项配置',
@@ -37,12 +66,14 @@ export const optionsConfig: FormItemConfig = {
 export const componentConfigMap: Record<string, FormItemConfig[]> = {
   input: [
     ...baseConfig,
+    defaultValueConfig,
     placeholderConfig,
     allowClearConfig,
     disabledConfig,
   ],
   select: [
     ...baseConfig,
+    defaultValueConfig,
     placeholderConfig,
     allowClearConfig,
     disabledConfig,
@@ -50,6 +81,7 @@ export const componentConfigMap: Record<string, FormItemConfig[]> = {
   ],
   multiSelect: [
     ...baseConfig,
+    defaultComplexValueConfig,
     placeholderConfig,
     allowClearConfig,
     disabledConfig,
@@ -57,57 +89,69 @@ export const componentConfigMap: Record<string, FormItemConfig[]> = {
   ],
   radio: [
     ...baseConfig,
+    defaultValueConfig,
     disabledConfig,
     optionsConfig,
   ],
   checkbox: [
     ...baseConfig,
+    defaultComplexValueConfig,
     disabledConfig,
     optionsConfig,
   ],
   datePicker: [
     ...baseConfig,
+    defaultValueConfig,
     placeholderConfig,
     disabledConfig,
   ],
   dateRangePicker: [
     ...baseConfig,
+    defaultComplexValueConfig,
     disabledConfig,
   ],
   timePicker: [
     ...baseConfig,
+    defaultValueConfig,
     placeholderConfig,
     disabledConfig,
   ],
   timeRangePicker: [
     ...baseConfig,
+    defaultComplexValueConfig,
     disabledConfig,
   ],
   textArea: [
     ...baseConfig,
+    defaultValueConfig,
     placeholderConfig,
     allowClearConfig,
     disabledConfig,
   ],
   inputNumber: [
     ...baseConfig,
+    defaultNumberValueConfig,
     placeholderConfig,
     disabledConfig,
   ],
   slider: [
     ...baseConfig,
+    defaultNumberValueConfig,
     disabledConfig,
   ],
   switch: [
     ...baseConfig,
+    defaultSwitchValueConfig,
     disabledConfig,
   ],
   rate: [
     ...baseConfig,
+    defaultNumberValueConfig,
     disabledConfig,
   ],
   colorPicker: [
     ...baseConfig,
+    defaultValueConfig,
     disabledConfig,
   ],
 };

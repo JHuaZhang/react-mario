@@ -26,6 +26,10 @@ const SetConfig = observer((props: Props) => {
       initialValues['defaultProps.options'] = JSON.stringify(currentComponent.defaultProps.options, null, 2);
     }
 
+    if (currentComponent.defaultProps?.defaultValue !== undefined && typeof currentComponent.defaultProps.defaultValue === 'object') {
+      initialValues['defaultProps.defaultValue'] = JSON.stringify(currentComponent.defaultProps.defaultValue, null, 2);
+    }
+
     model.values = initialValues;
   }, [currentComponent]);
 
@@ -34,6 +38,17 @@ const SetConfig = observer((props: Props) => {
       // Parse any JSON strings if present (like options)
       if (values['defaultProps.options']) {
         values['defaultProps.options'] = JSON.parse(values['defaultProps.options']);
+      }
+
+      if (typeof values['defaultProps.defaultValue'] === 'string') {
+        const val = values['defaultProps.defaultValue'].trim();
+        if (val.startsWith('[') || val.startsWith('{')) {
+          try {
+            values['defaultProps.defaultValue'] = JSON.parse(val);
+          } catch (e) {
+            // keep as string if parse fails
+          }
+        }
       }
       
       // Expand flat keys like "defaultProps.placeholder" into nested objects
