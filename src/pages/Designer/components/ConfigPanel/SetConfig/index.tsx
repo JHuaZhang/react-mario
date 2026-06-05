@@ -20,6 +20,7 @@ const SetConfig = observer((props: Props) => {
     // Set form model values, stringifying objects if needed (like options)
     const initialValues: any = {
       ...currentComponent,
+      defaultProps: currentComponent.defaultProps ? { ...currentComponent.defaultProps } : undefined,
     };
     
     if (currentComponent.defaultProps?.options) {

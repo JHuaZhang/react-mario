@@ -105,6 +105,19 @@ export const optionsConfig: FormItemConfig = {
   },
 };
 
+export const showSearchConfig: FormItemConfig = {
+  name: 'defaultProps.showSearch',
+  label: '支持搜索',
+  component: 'switch',
+};
+
+export const searchPlaceholderConfig: FormItemConfig = {
+  name: 'defaultProps.searchPlaceholder',
+  label: '搜索提示文字',
+  component: 'input',
+  visible: (values: any) => values['defaultProps.showSearch'] === true,
+};
+
 export const componentConfigMap: Record<string, FormItemConfig[]> = {
   input: [
     ...baseConfig,
@@ -120,6 +133,8 @@ export const componentConfigMap: Record<string, FormItemConfig[]> = {
     allowClearConfig,
     disabledConfig,
     optionsConfig,
+    showSearchConfig,
+    searchPlaceholderConfig,
   ],
   multiSelect: [
     ...baseConfig,
