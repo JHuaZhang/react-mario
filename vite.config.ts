@@ -2,7 +2,7 @@ import { defineConfig } from 'vite';
 import { fileURLToPath, URL } from 'node:url';
 
 export default defineConfig(({ mode }) => {
-  const base = mode === 'sitebuild' ? '/react-mario/' : '/';
+  const base = process.env.BASE_PATH || (mode === 'sitebuild' ? '/react-mario/' : '/');
 
   return {
     base,
@@ -16,6 +16,7 @@ export default defineConfig(({ mode }) => {
       host: '0.0.0.0',
       strictPort: false,
       open: true,
+      proxy: {},
     },
 
     build: {

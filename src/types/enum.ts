@@ -28,3 +28,23 @@ export enum ComponentClassification {
   /** 基础组件 */
   BASE = 'base',
 }
+
+/** 模板状态 */
+export enum TemplateStatus {
+  /** 草稿 */
+  DRAFT = 'draft',
+  /** 已提交 */
+  SUBMITTED = 'submitted',
+}
+
+/** 向导步骤 */
+export enum WizardStep {
+  /** 基本信息 */
+  BASIC_INFO = 0,
+  /** 玩法搭建 */
+  BUILD = 1,
+  /** 活动配置 */
+  ACTIVITY_CONFIG = 2,
+  /** 提交 */
+  SUBMIT = 3,
+}
