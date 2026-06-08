@@ -1,22 +1,15 @@
-import React from 'react'
-import { Layout, Typography } from 'antd'
+import React from 'react';
+import { Typography, Empty } from 'antd';
 
-const { Content } = Layout
-const { Title } = Typography
+const { Title } = Typography;
 
 const Builder: React.FC = () => {
   return (
-    <Layout style={{ height: '100vh' }}>
-      <Content style={{ 
-        display: 'flex', 
-        alignItems: 'center', 
-        justifyContent: 'center',
-        background: '#f5f5f5'
-      }}>
-        <Title level={3}>搭建页面</Title>
-      </Content>
-    </Layout>
-  )
-}
+    <div style={{ padding: 16, overflow: 'auto', flex: 1 }}>
+      <Title level={4} style={{ marginBottom: 24 }}>玩法搭建</Title>
+      <Empty description="请从玩法模板中选择一个模板进行搭建" />
+    </div>
+  );
+};
 
-export default Builder
+export default Builder;
