@@ -1,0 +1,12 @@
+{
+  "name": "马里奥",
+  "description": "马里奥",
+  "basePath": "auto",
+  "pages": [
+    {
+      "name": "首页",
+      "path": "/",
+      "description": "马里奥首页"
+    }
+  ]
+}
